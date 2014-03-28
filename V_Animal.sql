@@ -1,6 +1,6 @@
 /* Création de la table V_Animaux */
 
-CREATE TABLE V_Animal 
+CREATE TABLE IF NOT EXISTS V_ANIMAL
 (
 	identifiant int UNSIGNED NOT NULL AUTOINCREMENT,
 	nom varchar(20) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE V_Animal
 	identifiantProprietaire int UNSIGNED,
 
 	PRIMARY KEY (identifiant),
-	FOREIGN KEY (identifiantProprietaire) REFERENCES V_Propretaire(identifiant)
+	FOREIGN KEY (identifiantProprietaire) REFERENCES V_PROPRIETAIRE(identifiant)
 		ON DELETE SET NULL 
 		ON UPDATE CASCADE
 );

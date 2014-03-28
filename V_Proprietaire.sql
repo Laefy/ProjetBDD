@@ -1,6 +1,6 @@
-/* Création de la table V_Proprietaire */
+/* Création de la table V_PROPRIETAIRE */
 
-CREATE TABLE V_Proprietaire
+CREATE TABLE IF NOT EXISTS V_PROPRIETAIRE
 (
 	identifiant int UNSIGNED NOT NULL AUTOINCREMENT,
 	adresse varchar(50),
@@ -12,28 +12,28 @@ CREATE TABLE V_Proprietaire
 	PRIMARY KEY (identifiant)
 );
 
-CREATE TABLE V_Particulier
+CREATE TABLE IF NOT EXISTS V_PARTICULIER
 (
 	identifiant int UNSIGNED NOT NULL,
 	nom varchar(20) NOT NULL,
 	prenom varchar(20) NOT NULL,
 
 	PRIMARY KEY (identifiant),
-	FOREIGN KEY (identifiant) REFERENCES V_Proprietaire(identifiant)
-		ON DELETE cascade
-		ON UPDATE cascade
+	FOREIGN KEY (identifiant) REFERENCES V_PROPRIETAIRE(identifiant)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
 );
 
-CREATE TABLE V_Entreprise
+CREATE TABLE IF NOT EXISTS V_ENTREPRISE
 (
 	identifiant int UNSIGNED NOT NULL,
 	nom varchar(30) NOT NULL;
 	type enum('eleveur', 'cirque', 'centre equestre') NOT NULL,
 
 	PRIMARY KEY (identifiant),
-	FOREIGN KEY (identifiant) REFERENCES V_Proprietaire(identifiant)
-		ON DELETE cascade
-		ON UPDATE cascade
+	FOREIGN KEY (identifiant) REFERENCES V_PROPRIETAIRE(identifiant)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
 );
 
-/* V_Particulier et V_Entreprise héritent de V_Proprietaire */
+/* V_PARTICULIER et V_ENTREPRISE héritent de V_PROPRIETAIRE */
