@@ -1,0 +1,131 @@
+body 
+{
+	background-color: #8C0F24;
+	padding: 0;
+	margin: 0;
+}
+
+/* Le contenu de la page doit être centré */
+#content
+{
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 40px;
+
+	width: 1200px;
+	height: 600px;
+}
+
+
+/*** Eléments principaux ***/
+
+/* Le positionnement de ces divisions est absolu */
+.main
+{
+	position: absolute;
+}
+
+.block
+{
+	border-radius: 20px;
+
+	background-color: #AEADAD;
+	box-shadow: 15px 15px 10px #320404;
+}	
+
+nav.main, #cal
+{
+	box-shadow: 13px 15px 10px #320404;
+}
+
+section.main
+{
+	margin-left: 215px;
+
+	width: 989px;
+	height: 600px;
+}
+
+nav.main
+{
+	top: 195px;
+
+	width: 190px;
+	height: 400px;
+
+	color: #5E0000;
+	font-family: "Bookman", serif;
+	font-variant: small-caps;
+	font-size: 13pt;
+	font-weight: bold;
+}
+
+#cal
+{
+	width: 190px;
+	height: 170px;
+
+	background-image: url("calendrier.png");
+	background-repeat: no-repeat;
+	background-position: center 10px;
+
+	text-align: center;
+}
+
+
+/*** Menu ***/
+
+nav.main ul
+{
+	padding: 0;
+	margin-top: 25px;
+}
+
+nav.main ul li
+{
+	margin-top: 15px;
+	margin-bottom: 15px;
+
+	list-style-type: none;
+
+	text-align: center;
+}
+
+nav.main a
+{
+	color: #5E0000;
+	text-decoration: none;
+}
+
+nav.main a:hover
+{
+	color: #FE0019;
+}
+
+
+
+/*** Section principale ***/
+
+section.main h1
+{	
+	margin-left: 55px;
+
+	color: #5E0000;
+	font-family: "Bookman", serif;
+	font-size: 48pt;
+	font-weight: bold;	
+	font-style: italic;
+}
+
+
+/*** Calendrier ***/
+
+#cal #date
+{
+	margin-top: 30px;	
+
+	color: #5E0000;
+	font-family: "Avantgarde", sans-serif;
+	font-weight: bold;
+}
