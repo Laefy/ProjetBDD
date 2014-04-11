@@ -49,6 +49,20 @@
 			return false;
 		}
 
+		if ($login != 'Charcutier')
+		{
+			$_SESSION['err_connection'] = 'L\'identifiant est invalide.';
+
+			return false;
+		}
+
+		if ($passwd != 'saucisson')
+		{
+			$_SESSION['err_connection'] = 'Le mot de passe entr&eacute; est incorrect.';
+
+			return false;
+		}
+
 		unset($_SESSION['err_connection']);
 
 		setcookie('connected', true, time() + $_SESSION['timeout']);
