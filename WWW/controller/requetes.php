@@ -9,6 +9,7 @@
 			SELECT 
 			FROM V_CONSULTATION
 			WHERE 
+			LIMIT 1, 1
 		}
 
 

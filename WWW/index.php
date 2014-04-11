@@ -1,3 +1,3 @@
 <?php
 
-	include('controller/accueil.php');
+	include('controller/controller.php');

@@ -73,6 +73,27 @@ nav.main
 	text-align: center;
 }
 
+footer.main
+{
+	position: absolute;
+
+	top: 540px;
+	left: 835px;
+}
+
+footer.main a
+{
+	color: #556627;
+	text-decoration: none;
+	font-size: 11pt;
+	font-style: italic;
+}
+
+footer.main a:hover
+{
+	text-decoration: underline;
+}
+
 
 /*** Menu ***/
 
@@ -94,7 +115,9 @@ nav.main ul li
 
 nav.main a
 {
-	color: #5E0000;
+	/*color: #5E0000;*/
+	color: #2F4505;
+
 	text-decoration: none;
 }
 
@@ -109,9 +132,11 @@ nav.main a:hover
 
 section.main h1
 {	
+	margin-top: 30px;
 	margin-left: 55px;
 
-	color: #5E0000;
+	/*color: #5E0000;*/
+	color: #2F4505;
 	font-family: "Bookman", serif;
 	font-size: 48pt;
 	font-weight: bold;	
@@ -125,7 +150,8 @@ section.main h1
 {
 	margin-top: 30px;	
 
-	color: #5E0000;
+	/*color: #5E0000;*/
+	color: #9A5315;
 	font-family: "Avantgarde", sans-serif;
 	font-weight: bold;
 }
