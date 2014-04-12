@@ -66,9 +66,10 @@ nav.main
 	width: 190px;
 	height: 170px;
 
-	background-image: url("calendrier.png");
+	background-image: url("calendar.png");
 	background-repeat: no-repeat;
 	background-position: center 10px;
+	background-size: 140px 85px;
 
 	text-align: center;
 }
@@ -132,15 +133,85 @@ nav.main a:hover
 
 section.main h1
 {	
-	margin-top: 30px;
-	margin-left: 55px;
+	margin-top: 45px;
+	margin-left: 50px;
+	padding-left: 30px;
+	padding-right: 30px;
 
-	/*color: #5E0000;*/
+	display: inline-block;
+
+	background-color: #bdbcc0;
+	border-radius: 20px;
+	box-shadow: 0px 0px 10px #320404;
+
+	/*color: #76C342;*/
 	color: #2F4505;
 	font-family: "Bookman", serif;
-	font-size: 48pt;
-	font-weight: bold;	
+	font-variant: small-caps;
 	font-style: italic;
+	font-size: 52pt;
+	font-weight: bold;	
+}
+
+section.main section.text
+{
+	border-radius: 10px;
+
+	/*background-color: #929197;*/
+	background-color: #c8c5d6;
+	box-shadow: 0px 0px 15px #320404;
+}
+
+section#connection
+{
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	top: 30px;
+	padding-top: 10px;
+
+	width: 250px;
+	height: 290px; 
+
+	text-align: center;
+	color: #5C0515;
+	font-family: "Avantgarde", sans-serif;
+	font-size: 11pt;
+}
+
+section#connection form
+{
+	margin-top: 10px;
+}
+
+section#connection input[type="text"], section#connection input[type="password"]
+{
+	margin-top: 8px;
+	margin-bottom: 15px;
+
+	text-align: center;
+	width: 150px;
+
+	border: 0;
+	box-shadow: 0px 0px 2px #320404;
+}
+
+section#connection input[type="submit"]
+{
+	margin-top: 15px;
+
+	text-align: center;
+}
+
+.error
+{
+	color: #FE0019;	
+	font-size: 10pt;
+}
+
+.errbgcolor
+{
+	background-color: #FE0019;
 }
 
 
@@ -148,10 +219,10 @@ section.main h1
 
 #cal #date
 {
-	margin-top: 30px;	
+	margin-top: 35px;	
 
 	/*color: #5E0000;*/
-	color: #9A5315;
+	color: #235218;
 	font-family: "Avantgarde", sans-serif;
 	font-weight: bold;
 }

@@ -35,30 +35,38 @@
 	
 	function authenticate($login, $passwd)
 	{
+		unset($_SESSION['login']);
+		
 		if (!isset($login) || $login == '')
 		{
-			$_SESSION['err_connection'] = 'Aucun identifiant n\'a &eacute;té entr&eacute;.';
+			$_SESSION['err_connection'] = true;
+			$_SESSION['err_type'] = 'nologin';
 
 			return false;
 		}
 
+		$_SESSION['login'] = $login;
+
 		if (!isset($passwd) || $passwd == '')
 		{
-			$_SESSION['err_connection'] = 'Aucun mot de passe n\'a &eacute;té saisi.';
+			$_SESSION['err_connection'] = true;
+			$_SESSION['err_type'] = 'nopasswd';
 
 			return false;
 		}
 
 		if ($login != 'Charcutier')
 		{
-			$_SESSION['err_connection'] = 'L\'identifiant est invalide.';
+			$_SESSION['err_connection'] = true;
+			$_SESSION['err_type'] = 'uklogin';
 
 			return false;
 		}
 
 		if ($passwd != 'saucisson')
 		{
-			$_SESSION['err_connection'] = 'Le mot de passe entr&eacute; est incorrect.';
+			$_SESSION['err_connection'] = true;
+			$_SESSION['err_type'] = 'invpasswd';
 
 			return false;
 		}
@@ -67,8 +75,6 @@
 
 		setcookie('connected', true, time() + $_SESSION['timeout']);
 		$_SESSION['connected'] = true;
-
-		setcookie('login', $login, time() + 3600);
 
 		return true;
 	}
