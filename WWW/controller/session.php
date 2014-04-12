@@ -4,12 +4,12 @@
 	{
 		session_start();
 
-		$_SESSION['timeout'] = 30;
+		$_SESSION['timeout'] = 10 * 60;
+		unset($_SESSION['mysqli']);
 
 		if (!isset($_COOKIE['connected']))
 		{
-			setcookie('connected', false, time() + $_SESSION['timeout']);
-			$_SESSION['connected'] = false;
+			disconnect();
 		}
 
 		else 

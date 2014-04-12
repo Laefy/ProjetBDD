@@ -17,6 +17,14 @@ body
 	height: 600px;
 }
 
+/* Les liens héritent de leurs parents */
+a
+{
+	font: inherit;
+	color: inherit;
+	text-decoration: inherit;
+}
+
 
 /*** Eléments principaux ***/
 
@@ -79,20 +87,12 @@ footer.main
 	position: absolute;
 
 	top: 540px;
-	left: 835px;
-}
+	right: 50px;
 
-footer.main a
-{
 	color: #556627;
 	text-decoration: none;
 	font-size: 11pt;
 	font-style: italic;
-}
-
-footer.main a:hover
-{
-	text-decoration: underline;
 }
 
 
@@ -201,6 +201,9 @@ section#connection input[type="submit"]
 	margin-top: 15px;
 
 	text-align: center;
+	color: #5C0515;
+	font-family: "Avantgarde", sans-serif;
+	font-size: 11pt;
 }
 
 .error
@@ -211,7 +214,7 @@ section#connection input[type="submit"]
 
 .errbgcolor
 {
-	background-color: #FE0019;
+	background-color: #E10007;
 }
 
 
@@ -225,4 +228,12 @@ section#connection input[type="submit"]
 	color: #235218;
 	font-family: "Avantgarde", sans-serif;
 	font-weight: bold;
+}
+
+
+/*** Footer ***/
+
+footer.main a:hover
+{
+	text-decoration: underline;
 }

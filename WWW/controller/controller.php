@@ -5,7 +5,11 @@
 	initializeSession();
 
 	/** Connection à la base de données **/
-	
+	if ($_SESSION['connected'])
+	{
+		include_once('model/connection.php');
+		$_SESSION['mysqli'] = connectdb();
+	}
 
 	/** Page demandée **/
 	if (!$_SESSION['connected'])
