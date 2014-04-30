@@ -14,19 +14,19 @@ function Insert_in_proprietaire()
 
 	$query = "INSERT into V_PROPRIETAIRE (identifiant,adresse,codepostal,ville,pays,numerotelephone)
 			($identifiant,$adresse,$codepostal,$ville,$pays,$numerotelephone)";
-	$result = mysqli_query($query)
+	$result = $query->mysql_query()
 		or die("Requete non conforme");	
 
 	if($type=="particulier"){
 		$query = "INSERT into V_PARTICULIER (identifiant,nom,prenom)
 				($identifiant,$nom,$prenom)";
-		$result = mysqli_query($query)
+		$result = $query->mysql_query()
 			or die("Requete non conforme");
 	}
 	else if($type=="entreprise"){
 		$query = "INSERT into V_ENTREPRISE (identifiant,nom,enum)
 				($identifiant,$nom,$enum)";
-		$result = mysqli_query($query)
+		$result = $query->mysql_query()
 			or die("Requete non conforme");
 	}	
 }
