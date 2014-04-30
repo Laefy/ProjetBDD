@@ -5,12 +5,12 @@
 // Insert un individu dans la table proprietaire
 function Insert_in_proprietaire()
 {
-	$identifiant=$_GET['identifiant_proprietaire'];
-	$adresse=$_GET['adresse'];
-	$codepostal=$_GET['codepostal'];
-	$ville=$_GET['ville'];
-	$pays=$_GET['pays'];
-	$numerotelephone=$_GET['numerotelephone'];
+	$identifiant=$_POST['identifiant_proprietaire'];
+	$adresse=$_POST['adresse'];
+	$codepostal=$_POST['codepostal'];
+	$ville=$_POST['ville'];
+	$pays=$_POST['pays'];
+	$numerotelephone=$_POST['numerotelephone'];
 
 	$query = "INSERT into V_PROPRIETAIRE (identifiant,adresse,codepostal,ville,pays,numerotelephone)
 			($identifiant,$adresse,$codepostal,$ville,$pays,$numerotelephone)";
@@ -35,17 +35,17 @@ function Insert_in_proprietaire()
 
 function Insert_in_traitement()
 {
-	$identifiant=$_GET['identifiant_traitement'];
-	$produit=$_GET['produit'];
-	$dilution=$_GET['dilution'];
-	$frequence=$_GET['frequence'];
-	$dose=$_GET['dose'];
-	$duree=$_GET['duree'];
+	$identifiant=$_POST['identifiant_traitement'];
+	$produit=$_POST['produit'];
+	$dilution=$_POST['dilution'];
+	$frequence=$_POST['frequence'];
+	$dose=$_POST['dose'];
+	$duree=$_POST['duree'];
 	
 	$query = " INSERT into V_traitement (identifiant,produit,dilution,frequence,dose,duree)
 				($identifiant,$produit,$dilution,$frequence,$dose,$duree)";
 
-	$result = mysqli_query($query)
+	$result = $query->mysql_query()
 		or die("Requete non conforme");
 }
 
