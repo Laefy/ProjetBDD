@@ -16,22 +16,66 @@ nav
 
 nav .icon
 {
-	width: 50px;
-	height: 50px;
+	width: 56px;
+	height: 56px;
 
 	display: inline-block;
 
 	position: relative;
 	top: 50%;
-	margin-top: -25px;
+	margin-top: -28px;
+
+	margin-left: 27px;
+	margin-right: 27px;
+
+	background-size: 50px;
+	background-position: center center;
+	background-repeat: no-repeat;
+
+	image-rendering: -moz-crisp-edges | -o-crisp-edges;
 }
 
-nav a:hover .icon
+nav .icon:hover
 {
-	width: 56px;
-	height: 56px;
+	background-size: 56px 56px;
+}
 
-	margin-top: -28px;
-	margin-right: 27px;
-	margin-left: 27px;
+nav .icon.home
+{
+	background-image: url("icon_home.svg");
+}
+
+nav .icon.agenda
+{
+	background-image: url("icon_agenda.svg");
+}
+
+nav .icon.consult
+{
+	background-image: url("icon_consult.svg");
+}
+
+nav .icon.directory
+{
+	background-image: url("icon_directory.svg");
+}
+
+nav .icon.register
+{
+	background-image: url("icon_register.svg");
+}
+
+nav .icon.prescript
+{
+	background-image: url("icon_prescript.svg");
+}
+
+nav .icon.accounting
+{
+	background-image: url("icon_accounting.svg");
+}
+
+nav .icon.stock
+{
+	background-image: url("icon_stock.svg");
 }

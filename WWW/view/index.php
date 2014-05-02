@@ -21,7 +21,7 @@
 		?>
 
 	<!-- Icone -->
-		<link rel="icon" type="image/svg" href="content/icon.svg" />
+		<link rel="icon" type="image/png" href="content/icon.png" />
 
 	<!-- Titre de page -->
 		<?php
