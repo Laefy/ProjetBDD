@@ -3,11 +3,16 @@
 CREATE TABLE IF NOT EXISTS V_CONSULTATION 
 (   
 	identifiant mediumint UNSIGNED NOT NULL AUTO_INCREMENT,
-	date time NOT NULL,
+	date timestamp NOT NULL,
 	lieu enum('cabinet', 'hors cabinet') NOT NULL,
 	duree timestamp,
+	client mediumint UNSIGNED NOT NULL,
 
-	PRIMARY KEY (identifiant)
+	PRIMARY KEY (identifiant), 
+
+	FOREIGN KEY (client) REFERENCES V_PROPRIETAIRE(identifiant)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
 );
 
 /* Création de la table V_SOINS */

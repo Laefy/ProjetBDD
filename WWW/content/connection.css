@@ -1,0 +1,21 @@
+#connection
+{
+	width: 175px;
+
+	margin-top: 50px;
+	margin-right: auto;
+	margin-left: auto;
+
+	text-align: center;
+}
+
+.error
+{
+	margin-right: auto;
+	margin-left: auto;
+}
+
+input[type="text"], input[type="password"]
+{
+	width: 160px;
+}

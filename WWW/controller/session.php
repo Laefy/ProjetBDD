@@ -1,86 +1,121 @@
 <?php
 
-	function initializeSession()
+	include_once('controller/page.php');
+
+	/* Classe contenant toutes les informations relatives à la session en cours */
+	class session
 	{
-		session_start();
+		private $connected;
+		private $user;
+		private $mysqli;
+		private $page;
 
-		$_SESSION['timeout'] = 10 * 60;
-		unset($_SESSION['mysqli']);
-
-		if (!isset($_COOKIE['connected']))
+		public function __construct()
 		{
-			disconnect();
+			session_start();
+
+			$_SESSION['connection_timestamp'] = 60 * 2;
+
+			if (isset($_SESSION['session']))
+			{
+				$this->connected = $_SESSION['session']->connected;
+				$this->user = $_SESSION['session']->user;
+				$this->mysqli = $_SESSION['session']->mysqli;
+				$this->page = $_SESSION['session']->page;
+				$this->page->clear_error();
+
+				if ($this->is_connected())
+				{
+					include_once('model/connection.php');
+					$this->mysqli = connectdb();
+				}
+			}
+
+			else
+			{
+				$this->connected = false;
+				$this->page = new Page();
+			}
+
+			if (!isset($_COOKIE['connected']))
+			{
+				$this->disconnect();
+			}
+
+			else
+			{
+				setcookie('connected', true, time() + $_SESSION['connection_timestamp']);
+			}
 		}
 
-		else 
+		public function is_connected()
 		{
-		 	setcookie('connected', $_COOKIE['connected'], time() + $_SESSION['timeout']);
-		 	$_SESSION['connected'] = $_COOKIE['connected'];
+			return $this->connected;
 		}
 
-		if (isset($_POST['connection']) && $_POST['connection'])
+		public function authenticate($login, $passwd)
 		{
-			authenticate($_POST['login'], $_POST['passwd']);
+			if ($login != 'Charcutier')
+			{
+				$this->page->set_status('unknownlogin');
+				return false;
+			}
 
-			unset($_POST['connection']);
+			if ($passwd != 'saucisson')
+			{
+				$this->page->set_status('invalidpasswd');
+				return false;
+			}
+
+			$this->user = $login;
+			$this->connected = true;
+
+			include_once('model/connection.php');
+			$this->mysqli = connectdb();
+			setcookie('connected', true, time() + $_SESSION['connection_timestamp']);
+
+			return true;
 		}
 
-		else if (isset($_GET['disc']) && $_GET == true)
+		public function disconnect()
 		{
-			disconnect();
+			if ($this->is_connected())
+			{
+				include_once('model/connection.php');
+				disconnectdb($this->mysqli);
 
-			unset($_GET['disc']);
-		}
-	}
-	
-	function authenticate($login, $passwd)
-	{
-		unset($_SESSION['login']);
-		
-		if (!isset($login) || $login == '')
-		{
-			$_SESSION['err_connection'] = true;
-			$_SESSION['err_type'] = 'nologin';
-
-			return false;
+				$this->connected = false;
+				setcookie('connected');
+			}
 		}
 
-		$_SESSION['login'] = $login;
-
-		if (!isset($passwd) || $passwd == '')
+		public function save()
 		{
-			$_SESSION['err_connection'] = true;
-			$_SESSION['err_type'] = 'nopasswd';
-
-			return false;
+			$_SESSION['session'] = $this;
 		}
 
-		if ($login != 'Charcutier')
+		public function get_page()
 		{
-			$_SESSION['err_connection'] = true;
-			$_SESSION['err_type'] = 'uklogin';
-
-			return false;
+			return $this->page;
 		}
 
-		if ($passwd != 'saucisson')
+		public function set_page($page)
 		{
-			$_SESSION['err_connection'] = true;
-			$_SESSION['err_type'] = 'invpasswd';
-
-			return false;
+			$this->page = $page;
 		}
 
-		unset($_SESSION['err_connection']);
+		public function get_mysqli()
+		{
+			return $this->mysqli;
+		}
 
-		setcookie('connected', true, time() + $_SESSION['timeout']);
-		$_SESSION['connected'] = true;
+		public function head($page)
+		{
+			$this->page->head($page);
+		}
 
-		return true;
-	}
-
-	function disconnect()
-	{
-		setcookie('connected', false, time() + $_SESSION['timeout']);
-		$_SESSION['connected'] =  false;
+		public function get_user()
+		{
+			return $this->user;
+		}
 	}
