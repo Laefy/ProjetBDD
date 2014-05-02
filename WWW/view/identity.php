@@ -7,7 +7,7 @@
 
 		print('<p>Bonjour M. '.$session->get_user().',<br/>nous sommes le</p>');
 
-		print('<p>'.$calendar['day'].'<br/>'.$calendar['month'].'</p>');
+		print('<p class="calendar">'.$calendar['day'].'<br/>'.$calendar['month'].'</p>');
 
 		if ($calendar['appointment'] != false)
 		{
@@ -20,4 +20,9 @@
 		}
 	?>
 
+	<p class="icon">
+		<a href="index.php?clear" title="Vider la base de donn&eacute;es" class="clear icon"></a>
+		<a href="index.php?disconnect" title="D&eacute;connexion" class="disconnect icon"></a>
+	</p>
+	
 </section>

@@ -62,51 +62,51 @@
 			switch (date('n')) 
 			{
 				case '1':
-					$this->calendar['month'] = 'Jan';
+					$this->calendar['month'] = 'JAN';
 					break;
 
 				case '2':
-					$this->calendar['month'] = 'F&eacute;v';
+					$this->calendar['month'] = 'FEV';
 					break;
 
 				case '3':
-					$this->calendar['month'] = 'Mars';
+					$this->calendar['month'] = 'MARS';
 					break;
 
 				case '4':
-					$this->calendar['month'] = 'Avr';
+					$this->calendar['month'] = 'AVR';
 					break;
 
 				case '5':
-					$this->calendar['month'] = 'Mai';
+					$this->calendar['month'] = 'MAI';
 					break;
 
 				case '6':
-					$this->calendar['month'] = 'Juin';
+					$this->calendar['month'] = 'JUIN';
 					break;
 
 				case '7':
-					$this->calendar['month'] = 'Juil';
+					$this->calendar['month'] = 'JUIL';
 					break;
 
 				case '8':
-					$this->calendar['month'] = 'Ao&ucirc;t';
+					$this->calendar['month'] = 'AOUT';
 					break;
 
 				case '9':
-					$this->calendar['month'] = 'Sept';
+					$this->calendar['month'] = 'SEPT';
 					break;
 
 				case '10':
-					$this->calendar['month'] = 'Oct';
+					$this->calendar['month'] = 'OCT';
 					break;
 
 				case '11':
-					$this->calendar['month'] = 'Nov';
+					$this->calendar['month'] = 'NOV';
 					break;
 
 				case '12':
-					$this->calendar['month'] = 'D&eacute;c';
+					$this->calendar['month'] = 'DEC';
 					break;
 			}
 
