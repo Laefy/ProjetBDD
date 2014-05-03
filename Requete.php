@@ -2,11 +2,17 @@
 
 
 <?
+Include('connexion_inc.php');
+
+?>
+
+<br />
+<?
 // Insert un individu dans la table proprietaire
 function Insert_in_proprietaire()
 {
-	$codepostal=$_POST['codepostal'];
-	$libelle=$_POST['libelle'];
+	$codepostal = $_POST['codepostal'];
+	$libelle = $_POST['libelle'];
 	
 	$adresse=$_POST['adresse'];
 	$numerotelephone=$_POST['numerotelephone'];
@@ -17,31 +23,32 @@ function Insert_in_proprietaire()
 	$type_entreprise=$_POST['type_entreprise'];
 	
 	
-	$query = "INSERT INTO V_LOCALITE(codepostal,libelle)
-							VALUES ($codepostal,$libelle)";
-	$result = $query->mysql_query($query)
-		or die("Requete non conforme dans Insert_in_proprietaire , localite");	
+	$query = "INSERT INTO `V_LOCALITE`(`codepostal`, `libelle`)
+							VALUES ($codepostal,'$libelle')";
+	$result = mysql_query($query)
+		or die('Erreur '.$query);	
 		
 	
 
 	$query = "INSERT INTO V_PROPRIETAIRE (adresse,numerotelephone)
-							VALUES ($adresse,$numerotelephone)";
-	$result = $query->mysql_query()
-		or die("Requete non conforme dans Insert_in_proprietaire , proprietaire");	
+							VALUES ('$adresse','$numerotelephone')";
+	$result = mysql_query($query)
+		or die('Erreur '.$query);	
 
 		
-	if($type_particulier=="particulier"){
-		$query = "INSERT INTO V_PARTICULIER (identifiant,nom,prenom)
-								VALUES($identifiant,$nom,$prenom)";
-		$result = $query->mysql_query()
-			or die("Requete non conforme dans Insert_in_proprietaire, particulier");
+	if($type_proprietaire=='particulier'){
+		$query = "INSERT INTO V_PARTICULIER (nom,prenom)
+								VALUES('$nom','$prenom')";
+		$result = mysql_query($query)
+			or die('Erreur '.$query);
 	}
-	else if($type_particulier=="entreprise"){
-		$query = "INSERT INTO V_ENTREPRISE (identifiant,nom,type)
-								VALUES($identifiant,$nom,$type_entreprise)";
-		$result = $query->mysql_query()
-			or die("Requete non conforme dans Insert_in_proprietaire, entreprise");
+	else if($type_proprietaire=='entreprise'){
+		$query = "INSERT INTO V_ENTREPRISE (nom,type)
+								VALUES('$nom','$type_entreprise')";
+		$result = mysql_query($query)
+			or die('Erreur '.$query);
 	}	
+
 }
 
 // Insert un traitement dans la table traitement
@@ -59,16 +66,17 @@ function Insert_in_traitement()
 								VALUES($libelle)";
 
 	$result = $query->mysql_query()
-		or die("Requete non conforme dans Insert_in_traitement,medicament");
+		or die('Erreur '.$query);
 	
 	
 	$query = " INSERT INTO V_TRAITEMENT (dilution,frequence,dose,duree)
 				VALUES($dilution,$frequence,$dose,$duree)";
 
 	$result = $query->mysql_query()
-		or die("Requete non conforme dans Insert_in_traitement , traitement");
+		or die('Erreur '.$query);
 }
 
+// Insere un Animal dans la table V_ANIMAL
 function Insert_in_Animal()
 {
 	$libelle=$_POST['libelle'];
@@ -85,13 +93,13 @@ function Insert_in_Animal()
 	$query = "Insert into V_ESPECE(libelle)
 								VALUES($libelle)";
 	$result = $query->mysql_query()
-		or die("Requete non conforme dans Insert_in_Animal, espece");							
+		or die('Erreur '.$query);						
 	
 	$query = " INSERT into V_ANIMAL (nom,race,taille,poids,genre,castre,numTatouage,numPuce)
 				VALUES($nom,$race,$taille,$poids,$genre,$castre,$numTatouage,$numPuce)";
 
 	$result = $query->mysql_query()
-		or die("Requete non conforme dans Insert_in_Animal");
+		or die('Erreur '.$query);
 }				
 function Insert_in_Consultation()
 {
@@ -103,7 +111,7 @@ function Insert_in_Consultation()
 										VALUES($date,$lieu,$duree)";
 
 	$result = $query->mysql_query()
-		or die("Requete non conforme dans Insert_in_Consultation , consultation");
+		or die('Erreur '.$query);
 	
 	$anamnese=$_POST['anamnese'];
 	$diagnostic=$_POST['diagnostic'];
@@ -113,8 +121,11 @@ function Insert_in_Consultation()
 					VALUES($anamnese,$diagnostic,$manipulation)";
 				
 	$result = $query->mysql_query()
-		or die("Requete non conforme dans Insert_in_Consultation");
+		or die('Erreur '.$query);
 }
+
+Insert_in_Proprietaire();
+
 
 				
 ?>
