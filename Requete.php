@@ -17,28 +17,28 @@ function Insert_in_proprietaire()
 	$type_entreprise=$_POST['type_entreprise'];
 	
 	
-	$query = "INSERT into V_LOCALITE(codepostal,libelle)
-									($codepostal,$libelle)"
-	$result = $query->mysql_query()
+	$query = "INSERT INTO V_LOCALITE(codepostal,libelle)
+							VALUES ($codepostal,$libelle)";
+	$result = $query->mysql_query($query)
 		or die("Requete non conforme dans Insert_in_proprietaire , localite");	
 		
 	
 
-	$query = "INSERT into V_PROPRIETAIRE (adresse,numerotelephone)
-										($adresse,$numerotelephone)";
+	$query = "INSERT INTO V_PROPRIETAIRE (adresse,numerotelephone)
+							VALUES ($adresse,$numerotelephone)";
 	$result = $query->mysql_query()
 		or die("Requete non conforme dans Insert_in_proprietaire , proprietaire");	
 
 		
 	if($type_particulier=="particulier"){
-		$query = "INSERT into V_PARTICULIER (identifiant,nom,prenom)
-											($identifiant,$nom,$prenom)";
+		$query = "INSERT INTO V_PARTICULIER (identifiant,nom,prenom)
+								VALUES($identifiant,$nom,$prenom)";
 		$result = $query->mysql_query()
 			or die("Requete non conforme dans Insert_in_proprietaire, particulier");
 	}
 	else if($type_particulier=="entreprise"){
-		$query = "INSERT into V_ENTREPRISE (identifiant,nom,type)
-										($identifiant,$nom,$type_entreprise)";
+		$query = "INSERT INTO V_ENTREPRISE (identifiant,nom,type)
+								VALUES($identifiant,$nom,$type_entreprise)";
 		$result = $query->mysql_query()
 			or die("Requete non conforme dans Insert_in_proprietaire, entreprise");
 	}	
@@ -55,15 +55,15 @@ function Insert_in_traitement()
 	$dose=$_POST['dose'];
 	$duree=$_POST['duree'];
 	
-	$query = " INSERT into V_MEDICAMENT (libelle)
-										($libelle)";
+	$query = " INSERT INTO V_MEDICAMENT (libelle)
+								VALUES($libelle)";
 
 	$result = $query->mysql_query()
 		or die("Requete non conforme dans Insert_in_traitement,medicament");
 	
 	
-	$query = " INSERT into V_TRAITEMENT (dilution,frequence,dose,duree)
-				($dilution,$frequence,$dose,$duree)";
+	$query = " INSERT INTO V_TRAITEMENT (dilution,frequence,dose,duree)
+				VALUES($dilution,$frequence,$dose,$duree)";
 
 	$result = $query->mysql_query()
 		or die("Requete non conforme dans Insert_in_traitement , traitement");
@@ -83,12 +83,12 @@ function Insert_in_Animal()
 	$numPuce=$_POST['numPuce'];
 
 	$query = "Insert into V_ESPECE(libelle)
-								($libelle)";
+								VALUES($libelle)";
 	$result = $query->mysql_query()
 		or die("Requete non conforme dans Insert_in_Animal, espece");							
 	
 	$query = " INSERT into V_ANIMAL (nom,race,taille,poids,genre,castre,numTatouage,numPuce)
-				($nom,$race,$taille,$poids,$genre,$castre,$numTatouage,$numPuce)";
+				VALUES($nom,$race,$taille,$poids,$genre,$castre,$numTatouage,$numPuce)";
 
 	$result = $query->mysql_query()
 		or die("Requete non conforme dans Insert_in_Animal");
@@ -100,20 +100,20 @@ function Insert_in_Consultation()
 	$duree=$_POST['duree'];
 	
 	$query = " INSERT into V_CONSULTATION (date,lieu,duree)
-										($date,$lieu,$duree)";
+										VALUES($date,$lieu,$duree)";
 
 	$result = $query->mysql_query()
-		or die(("Requete non conforme dans Insert_in_Consultation , consultation");
+		or die("Requete non conforme dans Insert_in_Consultation , consultation");
 	
 	$anamnese=$_POST['anamnese'];
 	$diagnostic=$_POST['diagnostic'];
 	$manipultation=$_POST['manipultation'];
 
 	$query = " INSERT into V_SOINS (anamnese,diagnostic,manipulation)
-					($anamnese,$diagnostic,$manipulation)";
+					VALUES($anamnese,$diagnostic,$manipulation)";
 				
 	$result = $query->mysql_query()
-		or die(("Requete non conforme dans Insert_in_Consultation");
+		or die("Requete non conforme dans Insert_in_Consultation");
 }
 
 				
