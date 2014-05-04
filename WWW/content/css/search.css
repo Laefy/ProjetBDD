@@ -1,0 +1,42 @@
+#search 
+{
+	width: 335px;
+
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-left: 10px;
+
+	color: #A63E00;
+}
+
+#search input[name="keyword"]
+{
+	width: 213px;
+}
+
+#search select[name="search_area"]
+{
+	width: 173px;
+}
+
+#search p
+{
+	display: inline-block;
+}
+
+#search #submit_search
+{
+	width: 80px;
+	height: 55px;
+
+	margin-top: 7px;
+	margin-bottom: -7px;
+	margin-left: 18px;
+	padding: 0;
+
+	background-image: url("../img/tchong.svg");
+	background-repeat: no-repeat;
+	background-size: 80px 55px;
+
+	cursor: pointer;
+}

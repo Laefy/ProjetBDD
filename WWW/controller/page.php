@@ -38,6 +38,27 @@
 				case 'agenda':
 					return 'Agenda';
 
+				case 'consult':
+					return 'Consultations';
+
+				case 'directory':
+					return 'Client&egrave;le';
+
+				case 'register':
+					return 'Registre Animalier';
+
+				case 'prescript':
+					return 'Prescriptions';
+				
+				case 'accounting':
+					return 'Comptabilit&eacute;';
+
+				case 'stock':
+					return 'Stocks';
+
+				case 'research':
+					return 'R&eacute;sultat de la recherche';
+
 				default:
 					return 'Page Introuvable';
 			}

@@ -1,3 +1,5 @@
+<div id="connection_container">
+
 <section id="connection">
 
 	<p>Vous n'&ecirc;tes pas connect&eacute;. Veuillez-vous authentifier.</p>
@@ -62,3 +64,5 @@
 	</form>
 	
 </section>
+
+</div>

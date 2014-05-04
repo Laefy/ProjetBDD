@@ -3,10 +3,10 @@
 	width: 175px;
 
 	margin-top: 50px;
-	margin-right: auto;
-	margin-left: auto;
 
 	text-align: center;
+
+	color: #88092D;
 }
 
 .error
@@ -18,4 +18,9 @@
 input[type="text"], input[type="password"]
 {
 	width: 160px;
+}
+
+#connection_container
+{
+	text-align: center;
 }

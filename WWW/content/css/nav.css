@@ -31,8 +31,6 @@ nav .icon
 	background-size: 50px 50px;
 	background-position: center center;
 	background-repeat: no-repeat;
-
-	image-rendering: -moz-crisp-edges | -o-crisp-edges;
 }
 
 nav .icon:hover
@@ -42,40 +40,40 @@ nav .icon:hover
 
 nav .icon.home
 {
-	background-image: url("icon_home.svg");
+	background-image: url("../img/icon_home.svg");
 }
 
 nav .icon.agenda
 {
-	background-image: url("icon_agenda.svg");
+	background-image: url("../img/icon_agenda.svg");
 }
 
 nav .icon.consult
 {
-	background-image: url("icon_consult.svg");
+	background-image: url("../img/icon_consult.svg");
 }
 
 nav .icon.directory
 {
-	background-image: url("icon_directory.svg");
+	background-image: url("../img/icon_directory.svg");
 }
 
 nav .icon.register
 {
-	background-image: url("icon_register.svg");
+	background-image: url("../img/icon_register.svg");
 }
 
 nav .icon.prescript
 {
-	background-image: url("icon_prescript.svg");
+	background-image: url("../img/icon_prescript.svg");
 }
 
 nav .icon.accounting
 {
-	background-image: url("icon_accounting.svg");
+	background-image: url("../img/icon_accounting.svg");
 }
 
 nav .icon.stock
 {
-	background-image: url("icon_stock.svg");
+	background-image: url("../img/icon_stock.svg");
 }
