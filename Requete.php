@@ -17,32 +17,61 @@ function Insert_in_proprietaire()
 	$adresse=$_POST['adresse'];
 	$numerotelephone=$_POST['numerotelephone'];
 	
+	if(isset($_POST['type_prorietaire'])){
+		echo $_POST['type_prorietaire'];
+		echo 'chaine après type proprietaire';
+	}
+	else{
+		echo 'type proprietaire non set';
+	}
 	$type_proprietaire=$_POST['type_prorietaire'];
+	
 	$nom=$_POST['nom'];
 	$prenom=$_POST['prenom'];
+	
 	$type_entreprise=$_POST['type_entreprise'];
 	
+	$string_particulier="particulier";
+	$string_entreprise="entreprise";
 	
-	$query = "INSERT INTO `V_LOCALITE`(`codepostal`, `libelle`)
-							VALUES ($codepostal,'$libelle')";
+	$query = sprintf("INSERT INTO `V_LOCALITE`(`codepostal`, `libelle`)
+							VALUES ('%s','%s')",
+						$codepostal,
+						$libelle);
+						
+	/*$query = 'INSERT INTO `V_LOCALITE`(`codepostal`, `libelle`)
+							VALUES ('.$codepostal.','.$libelle.')';					
+	printf("%s \n",$query);	*/				
 	$result = mysql_query($query)
-		or die('Erreur '.$query);	
+		or die(mysql_error());
+		//or die('Erreur '.$query);	
 		
+	$query = sprintf("INSERT INTO V_PROPRIETAIRE (adresse,localite,numerotelephone)
+							VALUES (
+							'%s',
+							(SELECT codepostal
+							FROM V_LOCALITE
+							WHERE codepostal='%s'),
+									'%s')",
+						$adresse,
+						$codepostal,
+						$numerotelephone);	
+	$result = mysql_query($query)
+		or die(mysql_error());	
+
+	// 1 = particulier
+	// 2 = entreprise
+	echo $type_proprietaire;
 	
-
-	$query = "INSERT INTO V_PROPRIETAIRE (adresse,numerotelephone)
-							VALUES ('$adresse','$numerotelephone')";
-	$result = mysql_query($query)
-		or die('Erreur '.$query);	
-
-		
-	if($type_proprietaire=='particulier'){
-		$query = "INSERT INTO V_PARTICULIER (nom,prenom)
-								VALUES('$nom','$prenom')";
+	if($type_proprietaire==$string_particulier){
+		$query = sprintf("INSERT INTO V_PARTICULIER (nom,prenom)
+								VALUES('%s','%s')",
+								mysql_real_escape_string($nom),
+								mysql_real_escape_string($prenom));
 		$result = mysql_query($query)
 			or die('Erreur '.$query);
 	}
-	else if($type_proprietaire=='entreprise'){
+	else if($type_proprietaire==$string_entreprise){
 		$query = "INSERT INTO V_ENTREPRISE (nom,type)
 								VALUES('$nom','$type_entreprise')";
 		$result = mysql_query($query)
