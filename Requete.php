@@ -6,8 +6,13 @@ Include('connexion_inc.php');
 
 ?>
 
+
+
+
 <br />
 <?
+
+
 // Insert un individu dans la table proprietaire
 function Insert_in_proprietaire()
 {
@@ -17,14 +22,14 @@ function Insert_in_proprietaire()
 	$adresse=$_POST['adresse'];
 	$numerotelephone=$_POST['numerotelephone'];
 	
-	if(isset($_POST['type_prorietaire'])){
-		echo $_POST['type_prorietaire'];
-		echo 'chaine après type proprietaire';
+	if(isset($_POST[proprietaire])){
+		echo $_POST[prorietaire];
+		echo 'chaine apres type proprietaire';
 	}
 	else{
 		echo 'type proprietaire non set';
 	}
-	$type_proprietaire=$_POST['type_prorietaire'];
+	$type_proprietaire=$_POST['prorietaire'];
 	
 	$nom=$_POST['nom'];
 	$prenom=$_POST['prenom'];
@@ -63,15 +68,15 @@ function Insert_in_proprietaire()
 	// 2 = entreprise
 	echo $type_proprietaire;
 	
-	if($type_proprietaire==$string_particulier){
+	if($type_proprietaire===$string_particulier){
 		$query = sprintf("INSERT INTO V_PARTICULIER (nom,prenom)
 								VALUES('%s','%s')",
-								mysql_real_escape_string($nom),
-								mysql_real_escape_string($prenom));
+								$nom,
+								$prenom);
 		$result = mysql_query($query)
 			or die('Erreur '.$query);
 	}
-	else if($type_proprietaire==$string_entreprise){
+	else if($type_proprietaire===$string_entreprise){
 		$query = "INSERT INTO V_ENTREPRISE (nom,type)
 								VALUES('$nom','$type_entreprise')";
 		$result = mysql_query($query)
