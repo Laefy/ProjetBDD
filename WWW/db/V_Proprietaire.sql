@@ -2,22 +2,23 @@
 
 CREATE TABLE IF NOT EXISTS V_LOCALITE
 (
+	identifiant mediumint UNSIGNED NOT NULL AUTO_INCREMENT,
 	codepostal mediumint(5) NOT NULL,
-	libelle varchar(20) NOT NULL,
+	libelle varchar(20) NOT NULL UNIQUE,
 
-	PRIMARY KEY (codepostal)
+	PRIMARY KEY (identifiant)
 );
 
 CREATE TABLE IF NOT EXISTS V_PROPRIETAIRE
 (
 	identifiant mediumint UNSIGNED NOT NULL AUTO_INCREMENT,
 	adresse varchar(50),
-	localite mediumint(5),
+	localite mediumint UNSIGNED,
 	numerotelephone char(10),
 
 	PRIMARY KEY (identifiant),
 
-	FOREIGN KEY (localite) REFERENCES V_LOCALITE(codepostal)
+	FOREIGN KEY (localite) REFERENCES V_LOCALITE(identifiant)
 		ON DELETE SET NULL
 		ON UPDATE CASCADE
 );

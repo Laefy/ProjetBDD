@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS V_ANIMAL
 	taille float(3, 2), 
 	poids float(4, 3),
 	genre enum('Male', 'Femelle', 'Hermaphrodite', 'Inconnu') NOT NULL,
-	castre enum('Oui', 'Non') NOT NULL,
+	sterile enum('Oui', 'Non') NOT NULL,
 	numTatouage int UNSIGNED UNIQUE,
 	numPuce int UNSIGNED UNIQUE,
 	proprietaire mediumint UNSIGNED NOT NULL,

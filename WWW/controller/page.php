@@ -7,7 +7,7 @@
 
 		private $calendar;						/* information pour le calendrier */
 
-		public $status;							/* ture si pas d'erreur, erreur sinon */
+		private $status;						/* true si pas d'erreur, erreur sinon */
 
 
 		public function set_status($status, $value = true)
