@@ -2,7 +2,7 @@
 
 CREATE TABLE IF NOT EXISTS V_LOCALITE
 (
-	identifiant mediumint UNSIGNED NOT NULL AUTO_INCREMENT,
+	identifiant smallint UNSIGNED NOT NULL AUTO_INCREMENT,
 	codepostal mediumint(5) NOT NULL,
 	libelle varchar(20) NOT NULL UNIQUE,
 
@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS V_PROPRIETAIRE
 (
 	identifiant mediumint UNSIGNED NOT NULL AUTO_INCREMENT,
 	adresse varchar(50),
-	localite mediumint UNSIGNED,
+	localite smallint UNSIGNED,
 	numerotelephone char(10),
 
 	PRIMARY KEY (identifiant),
