@@ -1,19 +1,25 @@
 <?php
 
-	class db extends mysqli
+	class Db
 	{
 		private $host = 'sqletud.univ-mlv.fr';
 		private $user = 'cnoel';
 		private $passwd = 'poulet';
 		private $name = 'cnoel_db';
+		private $mysqli;
 
-		function __constructor()
+		public function __construct($reconstruct = false)
 		{
-			parent::constructor($this->host, $this->user, $this->passwd, $this->name);
+			$this->mysqli = new mysqli($this->host, $this->user, $this->passwd, $this->name);
 
 			if ($this->connect_errno)
 			{
-				die('Impossible de se connecter &agrave; la base de donn&eacute;es '.$this->name.' : '.$this->connect_error.'.<br/>');
+				die('Impossible de se connecter &agrave; la base de donn&eacute;es '.$this->name.' : '.$this->mysqli->connect_error.'.<br/>');
+			}
+
+			if ($reconstruct)
+			{
+				$this->connect();
 			}
 		}
 
@@ -26,16 +32,16 @@
 			foreach ($files as $file) 
 			{			
 				$query = file_get_contents('db/V_'.$file.'.sql');
-				$this->multi_query($query);
+				$this->mysqli->multi_query($query);
 							
 				do 
 				{
-				    if ($result = $this->store_result()) 
+				    if ($result = $this->mysqli->store_result()) 
 				    {
 				        $result->free();
 				    }
 
-				} while ($this->more_results() && $this->next_result());
+				} while ($this->mysqli->more_results() && $this->mysqli->next_result());
 			}
 		}
 
@@ -46,9 +52,9 @@
 			foreach ($tables as $table) 
 			{
 				$query = 'DROP TABLE V_'.$table;
-				$this->query($query);
+				$this->mysqli->query($query);
 
-				if ($result = $this->store_result()) 
+				if ($result = $this->mysqli->store_result()) 
 			    {
 			        $result->free();
 			    }
@@ -58,9 +64,9 @@
 		public function select_one($table, $label, $id)
 		{
 			$query = 'SELECT * FROM '.$table.' WHERE ('.$table.'.'.$label.' = '.$id.')';
-			$this->query($query);
+			$this->mysqli->query($query);
 
-			if ($result = $this->store_result())
+			if ($result = $this->mysqli->store_result())
 			{
 				$row = $result->fetch_array();
 				$result->free();
@@ -70,12 +76,32 @@
 			return null;
 		}
 
+		public function select_first_from($table, $label, $limitB, $limitU)
+		{
+			$query = 'SELECT '.$label.' FROM '.$table.' WHERE ('.$label.' > '.$limitB.' && '.$label.' < '.$limitU.') ORDER BY '.$label.' ASC LIMIT 1';
+			$this->mysqli->query($query);
+
+			if ($result = $this->mysqli->store_result())
+			{
+				$row = $result->fetch_array();
+
+				if ($row)
+				{
+					$val = $row[$label];
+					$result->free();
+					return $val;
+				}
+			}
+			
+			return null;
+		}
+
 		public function select_all($table)
 		{
 			$query = 'SELECT * FROM '.$table;
-			$this->query($query);
+			$this->mysqli->query($query);
 
-			if ($result = $this->store_result())
+			if ($result = $this->mysqli->store_result())
 			{
 				return $result;
 			}
@@ -97,7 +123,6 @@
 
 		public function insert_one($table, $values)
 		{
-			INSERT INTO $table(c1, c2, c3) VALUES ();
 			$cols = '';
 			$vals = '';
 			$nb = 0;
@@ -120,9 +145,9 @@
 			}
 
 			$query = 'INSERT INTO '.$table.'('.$cols.') VALUES ('.$vals.')';
-			$this->query($query);
+			$this->mysqli->query($query);
 
-			if ($result = $this->store_result)
+			if ($result = $this->mysqli->store_result)
 			{
 				$result->free();
 			}
@@ -152,9 +177,9 @@
 		public function get_last_insert_id()
 		{
 			$query = 'SELECT LAST_INSERT_ID()';
-			$this->query($query);
+			$this->mysqli->query($query);
 
-			if ($result = $this->store_result())
+			if ($result = $this->mysqli->store_result())
 			{
 				$row = $result->fetch_array();
 				$result->free();

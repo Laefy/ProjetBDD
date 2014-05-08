@@ -99,6 +99,11 @@ p
 	margin-bottom: 7px;
 }
 
+a
+{
+	cursor: pointer;
+}
+
 @font-face 
 {
 	font-family: "Ubuntu";

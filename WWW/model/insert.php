@@ -1,5 +1,7 @@
 <?php
 
+	include_once('model/db.php');
+	
 	function insert_owner($db, $values)
 	{
 		/** Détermination la localité **/

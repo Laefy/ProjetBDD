@@ -2,27 +2,23 @@
 
 	<?php
 
-		include_once('controller/page.php');
-		$calendar = $page->get_calendar();
+		include_once('controller/session.php');
 
 		print('<p>Bonjour M. '.$session->get_user().',<br/>nous sommes le</p>');
-
-		print('<p class="calendar">'.$calendar['day'].'<br/>'.$calendar['month'].'</p>');
-
-		if ($calendar['appointment'] != false)
-		{
-			print('<p>Votre prochain rendez-vous est pr&eacute;vu &agrave; '.$calendar['appointment'].'.</p>');
-		}
-
-		else
-		{
-			print('<p>Vous n\'avez aucun rendez-vous pr&eacute;vu aujourdh\'hui.</p>');
-		}
 	?>
 
+	<p id="identity_calendar"></p>
+	<p id="identity_rdv"></p>
+
+	<script type="text/javascript">	
+
+		set_calendar();
+
+	</script>
+
 	<p class="icon">
-		<a href="index.php?clear" title="Vider la base de donn&eacute;es" class="clear icon"></a>
-		<a href="index.php?disconnect" title="D&eacute;connexion" class="disconnect icon"></a>
+		<a title="Vider la base de donn&eacute;es" class="clear icon" onClick="clear_db();"></a>
+		<a title="D&eacute;connexion" class="disconnect icon" onClick="disconnect();"></a>
 	</p>
 	
 </section>

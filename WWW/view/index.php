@@ -32,8 +32,12 @@
 		?>	
 
 	<!-- Fonctions JavaScript -->
-		<script type="text/javascript" src="content/js/form.js"></script>
-		<script type="text/javascript" src="content/js/view.js"></script>
+		<script type="text/javascript" src="js/ajax.js"></script>
+		<script type="text/javascript" src="js/connect.js"></script>
+		<script type="text/javascript" src="js/date.js"></script>
+		<script type="text/javascript" src="js/form.js"></script>
+		<script type="text/javascript" src="js/link.js"></script>
+		<script type="text/javascript" src="js/view.js"></script>
 
 	</head>
 
