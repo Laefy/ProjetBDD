@@ -6,7 +6,7 @@
 	<a title="Client&egrave;le" class="directory icon" onClick="head_page('directory');"></a>
 	<a title="Registre Animalier" class="register icon" onClick="head_page('register');"></a>
 	<a title="Prescriptions" class="prescript icon" onClick="head_page('prescript');"></a>
-	<a title="Comptabilité" class="accounting icon" onClick="head_page('accounting');"></a>
-	<a title="Stocks" class="stock icon" onClick="head_page('stock');"></a>
+	<a title="Comptabilit&eacute;" class="accounting icon" onClick="head_page('accounting');"></a>
+	<a title="Mat&eacute;riel" class="stock icon" onClick="head_page('stock');"></a>
 
 </nav>

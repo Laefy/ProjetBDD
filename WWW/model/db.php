@@ -17,6 +17,8 @@
 				die('Impossible de se connecter &agrave; la base de donn&eacute;es '.$this->name.' : '.$this->mysqli->connect_error.'.<br/>');
 			}
 
+			$this->mysqli->set_charset('utf8');
+
 			if ($reconstruct)
 			{
 				$this->connect();
@@ -64,9 +66,9 @@
 		public function select_one($table, $label, $id)
 		{
 			$query = 'SELECT * FROM '.$table.' WHERE ('.$table.'.'.$label.' = '.$id.')';
-			$this->mysqli->query($query);
+			$result = $this->mysqli->query($query);
 
-			if ($result = $this->mysqli->store_result())
+			if ($result)
 			{
 				$row = $result->fetch_array();
 				$result->free();
@@ -78,10 +80,9 @@
 
 		public function select_first_from($table, $label, $limitB, $limitU)
 		{
-			$query = 'SELECT '.$label.' FROM '.$table.' WHERE ('.$label.' > '.$limitB.' && '.$label.' < '.$limitU.') ORDER BY '.$label.' ASC LIMIT 1';
-			$this->mysqli->query($query);
+			$result = $this->advanced_select($table, $label, $label.' > '.$limitB.' && '.$label.' < '.$limitU, $label, 'ASC', '1');
 
-			if ($result = $this->mysqli->store_result())
+			if ($result)
 			{
 				$row = $result->fetch_array();
 
@@ -92,19 +93,6 @@
 					return $val;
 				}
 			}
-			
-			return null;
-		}
-
-		public function select_all($table)
-		{
-			$query = 'SELECT * FROM '.$table;
-			$this->mysqli->query($query);
-
-			if ($result = $this->mysqli->store_result())
-			{
-				return $result;
-			}
 
 			return null;
 		}
@@ -113,12 +101,24 @@
 		{
 			$row = $result->fetch_array();
 
-			if (!$row)
+			if ($row == null)
 			{
 				$result->free();
 			}
 
 			return $row;
+		}
+
+		public function advanced_select($tables, $columns = '*', $conditions = '', $sortlabel = '', $sorttype = 'ASC', $limit = '')
+		{
+			$cond = $conditions ? ' WHERE ('.$conditions.')' : '';
+			$order = $sortlabel ? ' ORDER BY '.$sortlabel.' '.$sorttype : '';
+			$lim = $limit ? ' LIMIT '.$limit : '';
+
+			$query = 'SELECT '.$columns.' FROM '.$tables.$cond.$order.$lim;
+			$result = $this->mysqli->query($query);
+
+			return $result;
 		}
 
 		public function insert_one($table, $values)

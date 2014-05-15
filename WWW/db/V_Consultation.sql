@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS V_CONSULTATION
 	identifiant mediumint UNSIGNED NOT NULL AUTO_INCREMENT,
 	date timestamp NOT NULL,
 	lieu enum('cabinet', 'hors cabinet') NOT NULL,
-	duree timestamp,
+	duree timestamp NULL,
 	client mediumint UNSIGNED NOT NULL,
 
 	PRIMARY KEY (identifiant), 

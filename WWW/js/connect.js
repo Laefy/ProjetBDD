@@ -4,6 +4,7 @@ function connect()
 	var error_div = document.getElementById('connection_error');
 	var login = form.login;
 	var passwd = form.passwd;
+
 	var error = false;
 	
 	remove_class(login, 'error');
@@ -30,7 +31,7 @@ function connect()
 
 	var params = 'login=' + login.value + '&passwd=' + passwd.value;
 	passwd.value = '';
-
+	
 	var callback = function(response) 
 	{
 		if (response === 'connected')
@@ -54,7 +55,7 @@ function connect()
 
 			error_div.style.visibility = 'visible';
 		}
-	}
+	};
 
 	ajax_request('js/ajax/connect.php', params, callback);
 }

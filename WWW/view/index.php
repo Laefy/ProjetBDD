@@ -17,6 +17,7 @@
 				print('<link rel="stylesheet" type="text/css" href="content/css/identity.css" />');
 				print('<link rel="stylesheet" type="text/css" href="content/css/search.css" />');
 				print('<link rel="stylesheet" type="text/css" href="content/css/mainframe.css" />');	
+				print('<link rel="stylesheet" type="text/css" href="content/css/details.css" />');	
 			}
 			
 			print('<link rel="stylesheet" type="text/css" href="content/css/'.$page->get_section().'.css" />');	
@@ -38,6 +39,9 @@
 		<script type="text/javascript" src="js/form.js"></script>
 		<script type="text/javascript" src="js/link.js"></script>
 		<script type="text/javascript" src="js/view.js"></script>
+		<script type="text/javascript" src="js/details.js"></script>
+		<script type="text/javascript" src="js/insert.js"></script>
+		<script type="text/javascript" src="js/table.js"></script>
 
 	</head>
 
@@ -62,12 +66,16 @@
 					include('view/search.php');
 
 				/* Section identité */
+
+					print('<div id="leftcolumn">');
 					include('view/identity.php');
+					print('</div>');
+
 
 				/* Contenu de la page */
-					print('<section id="mainframe">');
-					include('view/'.$page->get_section().'.php');
-					print('</section>');	
+
+					include('view/main.php');
+
 
 					print('<script type="text/javascript">
 

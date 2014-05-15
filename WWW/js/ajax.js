@@ -1,4 +1,4 @@
-function ajax_request(url, params, callback)
+function ajax_request(url, params, callback, async = true)
 {
 	var ajaxReq = new XMLHttpRequest();
 
@@ -10,7 +10,7 @@ function ajax_request(url, params, callback)
 		}
 	}
 
-	ajaxReq.open('POST', url, true);
+	ajaxReq.open('POST', url, async);
 
 	ajaxReq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	

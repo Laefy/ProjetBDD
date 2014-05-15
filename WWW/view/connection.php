@@ -15,7 +15,7 @@
 			print('<p>Mot de Passe :<br/> <input type="password" name="passwd" /></p>');
 		?>
 
-		<p><button type="button" onClick="connect();">Click</button></p>
+		<p><a onClick="connect();"></a></p>
 
 	</form>
 	

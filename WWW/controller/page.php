@@ -64,7 +64,7 @@
 					break;
 
 				case 'stock':
-					$this->title ='Stocks';
+					$this->title ='Mat&eacute;riel';
 					break;
 
 				case 'research':
@@ -72,6 +72,7 @@
 					break;
 
 				default:
+					$this->section = 'unexisting_page';
 					$this->title ='Page Introuvable';
 					break;
 			}					

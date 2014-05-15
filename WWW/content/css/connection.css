@@ -6,7 +6,7 @@
 
 	text-align: center;
 
-	color: #88092D;
+	color: #752600;
 }
 
 #connection .error
@@ -29,4 +29,19 @@
 {
 	height: 15px;
 	line-height: 15px;
+}
+
+#connection a
+{
+	width: 130px;
+	height: 85px;
+
+	display: inline-block;
+
+	background-image: url('../img/raymon.svg');
+	background-size: 130px 75px;
+	background-position: center bottom;
+	background-repeat: no-repeat;
+
+	background-color: inherit;
 }

@@ -16,6 +16,6 @@ function resize_content()
 	if (hcontent < hwin + offset)
 	{
 		var newh = hwin + offset;
-		content.style.height = newh + 'px';
+		content.style.minHeight = newh + 'px';
 	}
 }
