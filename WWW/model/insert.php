@@ -307,3 +307,49 @@
 
 		return $array;
 	}
+	
+	
+	function get_insert_medicament($db)
+	{
+		$array['title'] = 'Médicament';
+		
+		$medicament = get_medicament_list($db, true);
+	
+		$array['columns']['libelle'] = array('text', '1-15','unique', $medicament);
+	
+	
+		return $array;
+	}
+	
+	function get_insert_traitement($db)
+	{
+		$array['title'] = 'Traitement';
+		
+		$medicament = get_medicament_list($db, true);
+		
+		$array['columns']['medicament'] = array('select',$medicament,'dyn');
+		$array['columns']['dilution'] = array('text', '0-10');
+		$array['columns']['frequence'] = array('text', '0-10');
+		$array['columns']['dose'] = array('text', '0-10');
+		$array['columns']['duree'] = array('text', '1-10');
+		
+		return $array;
+	}
+	
+	function get_insert_soins($db)
+	{
+		$array['title'] = 'Soins';
+
+		$consultation = get_consultation_list($db);
+		$animal = get_animal_list($db);
+		$traitement = get_traitement_list($db);
+		
+		$array['columns']['consultation'] = array('select', $consultation, 'dyn');
+		$array['columns']['animal'] = array('select', $animal, 'dyn');
+		$array['columns']['anamnese'] = array('text', '0-50');
+		$array['columns']['diagnostic'] = array('text', '0-100');
+		$array['columns']['manipulation'] = array('text', '0-100');
+		$array['columns']['traitement'] = array('select', $traitement, 'dyn');
+		
+		return $array;
+	}
