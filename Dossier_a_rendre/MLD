@@ -1,0 +1,49 @@
+Note : Le MLD est dans le rapport
+
+- Animal (identifiant, nom, race, taille, poids, genre, castre, numTatouage, numPuce, #Espece, #Proprietaire) 
+Clé primaire : identifiant
+Clés étrangères : Espece reference l'identifiant l'entité "espece"
+		     Proprietaire référence à l'identifiant de l'entité "propriétaire"
+
+
+- Consultation (identifiant, date, lieu, duree,#client)
+Clé primaire : identifiant
+Clé étrangère : client référence à l'identifiant de l'entité "propriétaire"
+
+
+- Espece (identifiant, libelle) 
+Clé primaire : identifiant
+
+
+- Localite (identifiant, codepostal, libelle)
+Clé primaire : identifiant 
+
+
+- Proprietaire (identifiant, adresse, telephone, #localite) 
+Clé primaire : identifiant
+Clé étrangère : localite référence à l'identifiant de l'entité "localité"
+
+
+- Particulier (#identifiant, nomParticulier, prenomParticulier) 
+Clé primaire : identifiant
+Clé étrangère : identifiant , référence à l'identifiant de l'entité propriétaire
+
+
+- Entreprise (#identifiant, nom, type) 
+Clé primaire : identifiant
+Clé étrangère : identifiant , référence à l'identifiant de l'entité "propriétaire"
+
+
+- Traitement (identifiant, duree, frequence, dose, dilution, #medicament) 
+Clé primaire : identifiant
+Clé étrangère : medicament , référence à l'identifiant de l'entité "medicament"
+
+
+- Medicament (identifiant, libelle) 
+Clé primaire : identifiant
+
+- herite_de (Entreprise, Proprietaire, Particulier) 
+Clé primaire : Entreprise,Proprietaire,Particulier
+
+- consulte (Consultation, Animal, Traitement, anamneseSoins, diagnosticSoins, 	manipulationSoins) 
+Clé primaire : Consultation, Animal , Traitement
