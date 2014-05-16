@@ -21,13 +21,14 @@
 			switch ($type)
 			{
 				case 'text':
+					$row .= '~/'.$col[1];
 					if (isset($col[2]))
 					{
 						$unique = '~/';
 						foreach ($col[2] as $value) 
 							$unique .= '~]'.$value;
 
-						$row .= '~/'.$col[1].str_replace('~/~]', '~/', $unique);
+						$row .= str_replace('~/~]', '~/', $unique);
 					}
 					break;
 

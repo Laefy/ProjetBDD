@@ -44,10 +44,10 @@
 		switch ($section)
 		{
 			case 'consult':
-				return 'Le registre des consultations ne contient aucune entr&eacute;es concernant les consultations '.($type == 'former' ? 'passées' : 'à venir').'.';
+				return 'Le registre des consultations ne contient aucune entrée concernant les consultations '.($type == 'former' ? 'passées' : 'à venir').'.';
 
 			case 'directory':
-				return 'L\'annuaire des '.($type == 'part' ? 'particuliers' : 'professionels').' est vide (il va falloir penser à; vous faire des amis).';
+				return 'L\'annuaire des '.($type == 'part' ? 'particuliers' : 'professionels').' est vide (il va falloir penser à vous faire des amis).';
 
 			case 'register':
 				return 'Aucun animal n\'est référencé pour le moment.';
@@ -87,7 +87,7 @@
 			break;
 
 		default:
-			print('null'.'~~'.'La page demand&eacute;e n\'a pas &eacute;t&eacute; trouv&eacute;e !');
+			print('null'.'~~'.'La page demandée n\'a pas été trouvée !');
 			break;
 	}
 
@@ -101,7 +101,7 @@
 
 		else
 		{
-			print('true'.'~~'.get_null_response($section, $type));
+			print('null'.'~~'.get_null_response($section, $type));
 		}
 	}
 

@@ -28,12 +28,12 @@ function create_delete_icon()
 	return adelete;
 }
 
-function create_valid_icon(clickFnc)
+function create_valid_icon(clickFnc, params)
 {
 	var valid = document.createElement('a');
 	valid.className = 'icon save';
 	valid.onclick = function() {
-		clickFnc();
+		clickFnc(params);
 	};
 
 	return valid;
@@ -122,12 +122,19 @@ function get_label(name)
 	}
 }
 
-function set_input_or_span_size(span)
+function set_input_size(input)
 {
-	var div = span.parentNode;
-	var x = span.offsetLeft;
-	var w =  340 - x;
-	span.style.width = w + 'px';
+	var div = input.parentNode;
+	var name = input.parentNode.getElementsByTagName('span')[0];
+
+	var wDiv = div.offsetWidth;
+	var wName = name.offsetWidth;
+
+	var marginRight = input.tagName === 'SELECT' ? 43 : 60;
+
+	var width = wDiv - wName - marginRight;
+
+	input.style.width = width + 'px';
 }
 
 function create_detailed_frame(element, array)
@@ -147,12 +154,7 @@ function create_detailed_frame(element, array)
 	for (var key in rows)
 	{
 		form.appendChild(rows[key]);
-		var spans = rows[key].getElementsByTagName('span');
-
-		for (var i = 0; i < spans.length; i ++)
-		{
-			set_input_or_span_size(spans[i]);
-		}
+		set_input_size(rows[key].getElementsByTagName('span')[1]);
 	}
 
 	element.appendChild(create_delete_icon());
@@ -168,8 +170,10 @@ function create_hidden_input(key, value, type)
 	return input;
 }
 
-function create_input(key, type, value = '')
+function create_input(key, type, value)
 {
+	value = value || '';
+
 	if (type === 'text')
 	{
 		var input = document.createElement('input');
@@ -205,7 +209,6 @@ function save_in_db()
 	var span = document.createElement('span');
 	span.appendChild(document.createTextNode(value));
 	div.insertBefore(span, this);
-	set_input_or_span_size(span);	
 
 	this.className = 'icon edit';
 	this.onclick = edit_db;
@@ -214,7 +217,7 @@ function save_in_db()
 function edit_db()
 {
 	var div = this.parentNode;
-	var span = div.getElementsByTagName('span')[0];
+	var span = div.getElementsByTagName('span')[1];
 	div.removeChild(span);
 
 	var datas = div.getElementsByTagName('input')[0];
@@ -223,7 +226,7 @@ function edit_db()
 	var input = create_input(str[2], str[1], str[0]);
 
 	div.insertBefore(input, this);
-	set_input_or_span_size(input);
+	set_input_size(input);
 
 	this.className = 'icon save';
 	this.onclick = save_in_db;
@@ -263,7 +266,9 @@ function create_array_from_response(response)
 		if (values[0] === value)
 		{
 			var div = document.createElement('div');
-			div.appendChild(document.createTextNode(get_label(key) + ' : '));
+			var name = document.createElement('span');
+			name.appendChild(document.createTextNode(get_label(key) + ' : '));
+			div.appendChild(name);
 
 			div.appendChild(create_hidden_input(key, value, type));
 

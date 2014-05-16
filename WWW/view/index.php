@@ -40,6 +40,8 @@
 		<script type="text/javascript" src="js/link.js"></script>
 		<script type="text/javascript" src="js/view.js"></script>
 		<script type="text/javascript" src="js/details.js"></script>
+		<script type="text/javascript" src="js/add.js"></script>
+		<script type="text/javascript" src="js/type.js"></script>
 		<script type="text/javascript" src="js/insert.js"></script>
 		<script type="text/javascript" src="js/table.js"></script>
 

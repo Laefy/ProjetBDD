@@ -1,8 +1,10 @@
-function create_insert_text_input(element, label, format, forbidden = '')
+function create_insert_text_input(element, label, format, forbidden)
 {
+	forbidden = forbidden || '';
+
 	var hidden = document.createElement('input');
 	hidden.type = 'hidden';
-	hidden.value = format + (forbidden !== '' ? '~/' + forbidden : '');
+	hidden.value = 'input~~' + format + (forbidden !== '' ? '~/' + forbidden : '');
 	element.appendChild(hidden);
 
 	var input = document.createElement('input');
@@ -12,11 +14,13 @@ function create_insert_text_input(element, label, format, forbidden = '')
 	element.appendChild(input);
 }
 
-function create_insert_select(element, label, optStr, dyn = 'static')
+function create_insert_select(element, label, optStr, dyn)
 {
+	dyn = dyn || 'static';
+
 	var hidden = document.createElement('input');
 	hidden.type = 'hidden';
-	hidden.value = dyn;
+	hidden.value = 'select~~' + dyn;
 	element.appendChild(hidden);
 
 	var select = document.createElement('select');
@@ -54,6 +58,7 @@ function create_insert_radio(element, label, values)
 {
 	var hidden = document.createElement('input');
 	hidden.type = 'hidden';
+	hidden.value = 'input';
 	element.appendChild(hidden);
 	element.appendChild(document.createElement('br'));
 
@@ -70,7 +75,7 @@ function create_insert_radio(element, label, values)
 		element.appendChild(document.createTextNode(datas[0]));
 		element.appendChild(document.createElement('br'));
 
-		hidden.value = (i === 0 ? '' : '~~') + valArray[i];
+		hidden.value += ((i === 0 ? '~~' : '~/') + valArray[i]);
 	}	
 
 	element.style.height = (28 + valArray.length * 18) + 'px';
@@ -80,28 +85,23 @@ function create_insert_list(element, label)
 {
 	var hidden = document.createElement('input');
 	hidden.type = 'hidden';
-	hidden.value = label;
+	hidden.value = 'list~~' + label;
 	element.appendChild(hidden);
 }
 
-
-function set_insert_input_size(input, type)
+function save_insert(form)
 {
-	var div = input.parentNode;
-	var x = input.offsetLeft;
-	var w = (type == 'text' ? 340 : 354) - x;
-	input.style.width = w + 'px';
-}
+	var section = form.className;
 
+	if (check_insertion(form))
+	{
+		send_form_to_db(form, section);
+	}
 
-function save_insert()
-{
-	var container = this.parentNode;
-	var form = container.getElementsByTagName('form')[0];
-
-	var section = form.name;
-
-	alert('faire sauvegarde');
+	else 
+	{
+		alert('Le formulaire n\'est pas correct.');
+	}
 }
 
 
@@ -115,7 +115,7 @@ function create_insert_frame(element, array, section)
 	element.appendChild(create_close_icon());
 
 	var form = document.createElement('form');
-	form.name = section;
+	form.className = section;
 	element.appendChild(form);
 
 	var rows = array['rows'];
@@ -128,17 +128,17 @@ function create_insert_frame(element, array, section)
 		for (var i = 0; i < inputs.length; i ++)
 		{
 			if (inputs[i].type === 'text')
-				set_insert_input_size(inputs[i], 'text');
+				set_input_size(inputs[i]);
 		}
 
 		var selects = rows[key].getElementsByTagName('select');
 		for (var i = 0; i < selects.length; i ++)
 		{
-			set_insert_input_size(selects[i], 'select');
+			set_input_size(selects[i]);
 		}
 	}
 
-	element.appendChild(create_valid_icon(save_insert));
+	element.appendChild(create_valid_icon(save_insert, form));
 }
 
 function create_insert_array_from_response(response)
@@ -161,7 +161,9 @@ function create_insert_array_from_response(response)
 		var type = respArray3[1];
 
 		var div = document.createElement('div');
-		div.appendChild(document.createTextNode(get_label(label) + ' : '));
+		var span = document.createElement('span');
+		span.appendChild(document.createTextNode(get_label(label) + ' : '));
+		div.appendChild(span);
 
 		switch (type)
 		{
@@ -177,7 +179,7 @@ function create_insert_array_from_response(response)
 				create_insert_radio(div, label, respArray3[2]);
 				break;
 
-			case 'default':
+			case 'list':
 				create_insert_list(div, label);
 				break;
 		}

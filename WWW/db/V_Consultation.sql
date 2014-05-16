@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS V_CONSULTATION
 (   
 	identifiant mediumint UNSIGNED NOT NULL AUTO_INCREMENT,
 	date timestamp NOT NULL,
-	lieu enum('cabinet', 'hors cabinet') NOT NULL,
+	lieu enum('Cabinet', 'Extérieur') NOT NULL,
 	duree timestamp NULL,
 	client mediumint UNSIGNED NOT NULL,
 
@@ -40,3 +40,4 @@ CREATE TABLE IF NOT EXISTS V_SOINS
 		ON DELETE SET NULL
 		ON UPDATE CASCADE
 );
+ 

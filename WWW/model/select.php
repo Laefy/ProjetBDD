@@ -108,6 +108,86 @@
 		return $array;
 	}
 
+	function get_medicament_list($db, $lib = false)
+	{
+		$table = 'V_MEDICAMENT';
+		$columns = 'identifiant, libelle';
+		$result = $db->advanced_select($table, $columns);
+
+		$i = 0;
+
+		if ($lib)
+		{
+			while ($row = $db->get_one_row($result))
+			{
+				$array[$i] = $row['libelle'];
+				$i ++;
+			}
+		}
+
+		else
+		{
+			while ($row = $db->get_one_row($result))
+			{
+				$array[$i] = array($row['identifiant'], $row['libelle']);
+				$i ++;
+			}
+		}
+
+		return $array;
+
+	}
+
+	function get_animal_list($db)
+	{
+		$table = 'V_ANIMAL';
+		$columns = 'identifiant, nom';
+		$result = $db->advanced_select($table, $columns);
+
+		$i = 0;
+
+		while ($row = $db->get_one_row($result))
+		{
+			$array[$i] = array($row['identifiant'], $row['nom']);
+			$i ++;
+		}
+
+		return $array;
+	}
+
+	function get_traitement_list($db)
+	{
+		$table = 'V_TRAITEMENT';
+		$columns = 'identifiant';
+		$result = $db->advanced_select($table, $columns);
+
+		$i = 0;
+		while ($row = $db->get_one_row($result))
+		{
+			$array[$i] = array($row['identifiant']);
+			$i ++;
+		}
+
+		return $array;
+	}
+
+	function get_consultation_list($db)
+	{
+		$table = 'V_CONSULTATION';
+		$columns = 'identifiant, client';
+		$result = $db->advanced_select($table, $columns);
+
+		$i = 0;
+		while ($row = $db->get_one_row($result))
+		{
+			$array[$i] = array($row['identifiant'], get_client_name($db, $row['client']));
+			$i ++;
+		}
+
+		return $array;
+	}
+
+
 
 	function get_table_formerconsult($db, $sortlabel, $sorttype = '')
 	{
@@ -280,7 +360,7 @@
 		$columns['client'] = array($client, 'select', array('~*', 'directory', $row['client']));
 		$columns['date'] = array(get_date('d/m/y', $row['date']), 'text');
 		$columns['heure'] = array(get_date('h:i', $row['date']), 'text');
-		$columns['lieu'] = array($row['lieu'] == 'cabinet' ? 'Cabinet' : 'Extérieur', 'select');
+		$columns['lieu'] = array($row['lieu'], 'select');
 
 		if ($type == 'former')
 			$columns['duree'] = array($duree, 'text');

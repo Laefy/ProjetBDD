@@ -78,8 +78,11 @@ function create_array_from_respString(response)
 	return array;
 }
 
-function get_datas_in_table(section, type = '', page = 1)
+function get_datas_in_table(section, type, page)
 {
+	type = type || '';
+	page = page || 1;
+
 	var params = 'section=' + section + '&type=' + type + '&page=' + page;
 
 	var callback = function(response) {
@@ -108,18 +111,23 @@ function get_datas_in_table(section, type = '', page = 1)
 	ajax_request('js/ajax/table.php', params, callback, false);
 }
 
-function associate_detailed_frame_link(table, section, type = '')
+function associate_detailed_frame_link(table, section, type)
 {
-	var rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-	var nbrows = rows.length;
+	type = type || '';
 
-	for (var i = 0; i < nbrows; i ++)
+	if (table)
 	{
-		rows[i].onclick = function() {
+		var rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+		var nbrows = rows.length;
 
-			var id = this.getElementsByTagName('td')[0].innerHTML;
-			open_detailed_frame(section, type, id); 
-		};
+		for (var i = 0; i < nbrows; i ++)
+		{
+			rows[i].onclick = function() {
+
+				var id = this.getElementsByTagName('td')[0].innerHTML;
+				open_detailed_frame(section, type, id); 
+			};
+		}
 	}
 }
 

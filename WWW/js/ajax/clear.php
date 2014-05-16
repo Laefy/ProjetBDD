@@ -2,6 +2,6 @@
 
 	include_once('../../model/db.php');
 	
-	session_start();
+	$db = new Db();
 	
-	$_SESSION['db']->clear();
+	$db->clear();

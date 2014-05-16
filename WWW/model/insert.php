@@ -1,36 +1,21 @@
 <?php
 
-	function insert_owner($db, $values)
+	function format_date($date, $heure)
 	{
-		/** Détermination la localité **/
-		if ($values['localite'])
-		{
-			$localite = $db->select_one('V_LOCALITE', 'libelle', $values['localite']);
+		$d = explode('/', $date);
+		return ('\''.$d[2].'-'.$d[1].'-'.$d[0].' '.$heure.':00\'');
+	}
 
-			if (!$localite)
-			{
-				$addLoc['codepostal'] = $values['codepostal'];
-				$addLoc['libelle'] = $values['localite'];
-				$db->insert_one('V_LOCALITE', $addLoc);
-				$idLoc = $db->get_last_insert_id();
-			}
+	function format_heure($heure)
+	{
+		return ('\'0000-00-00 '.$heure.':00\'');
+	}
 
-			else
-			{
-				$idLoc = $localite['identifiant'];
-			}
-
-			$addProp['localite'] = $idLoc;
-		}
-
-		else
-		{
-			$addProp['localite'] = 'null';
-		}
-
-		/** Autres variables **/
-		$addProp['adresse'] = $values['adresse'] || 'null';
-		$addProp['numerotelephone'] = $values['num'] || 'null';
+	function insert_client($db, $values)
+	{
+		$addProp['adresse'] = '\''.$values['adresse'].'\'';
+		$addProp['numerotelephone'] = '\''.$values['num'].'\'';
+		$addProp['localite'] = $values['localite'];
 
 		/** Ajout du Propriétaire **/
 		$db->insert_one('V_PROPRIETAIRE', $addProp);
@@ -39,16 +24,16 @@
 		/** Détermination du sous-type de propriétaire **/
 		if ($values['type'] == 'particulier')
 		{
-			$addPart['nom'] = $values['nom'];
-			$addPart['prenom'] = $values['prenom'];
+			$addPart['nom'] = '\''.$values['nom'].'\'';
+			$addPart['prenom'] = '\''.$values['prenom'].'\'';
 			$addPart['identifiant'] = $idProp;
 			$db->insert_one('V_PARTICULIER', $addPart);
 		}
 
 		else
 		{
-			$addEnt['nom'] = $values['nom'];
-			$addEnt['type'] = $values['type'];
+			$addEnt['nom'] = '\''.$values['nom'].'\'';
+			$addEnt['type'] = '\''.$values['type'].'\'';
 			$addEnt['identifiant'] = $idProp;
 			$db->insert_one('V_ENTREPRISE', $addPart);	
 		}
@@ -58,45 +43,17 @@
 
 	function insert_animal($db, $values)
 	{
-		/** Détermination de l'espèce **/
-		$espece = $db->select_one('V_ESPECE', 'libelle', $values['espece']);
+		$addAnimal['espece'] = $values['espece'];
+		$addAnimal['proprietaire'] = $values['client'];
 
-		if (!$espece)
-		{
-			$addEsp['libelle'] = $values['espece'];
-			$db->insert_one('V_ESPECE', $addEsp);
-			$idEsp = $db->get_last_insert_id();
-		}
-
-		else
-		{
-			$idEsp = $espece['identifiant'];
-		}
-
-		$addAnimal['espece'] = $idEsp;
-
-		/** Détermination du propriétaire **/
-		if ($values['newProp'])
-		{
-			$idProp = insert_owner($db, $values['proprietaire']);
-		}
-
-		else
-		{
-			$idProp = $values['proprietaire'];
-		}
-
-		$addAnimal['proprietaire'] = $idProp;
-
-		/** Autres variables **/
-		$addAnimal['nom'] = $values['nom'];
-		$addAnimal['race'] = $values['race'] || 'null';
-		$addAnimal['taille'] = $values['taille'] || 'null';
-		$addAnimal['poids'] = $values['poids'] || 'null';
-		$addAnimal['genre'] = $values['genre'];
-		$addAnimal['sterile'] = $values['sterile'];
-		$addAnimal['numTatouage'] = $values['numTatouage'] || 'null';
-		$addAnimal['numPuce'] = $values['numPuce'] || 'null';
+		$addAnimal['nom'] = '\''.$values['nom'].'\'';
+		$addAnimal['race'] = '\''.$values['race'].'\'';
+		$addAnimal['taille'] = str_replace(',', '.', $values['taille']);
+		$addAnimal['poids'] = str_replace(',', '.', $values['poids']);
+		$addAnimal['genre'] = '\''.$values['genre'].'\'';
+		$addAnimal['sterile'] = '\''.$values['sterile'].'\'';
+		$addAnimal['numTatouage'] = $values['numTatouage'];
+		$addAnimal['numPuce'] = $values['numPuce'];
 
 		/** Ajout de l'animal **/
 		$db->insert_one('V_ANIMAL', $addAnimal);
@@ -104,30 +61,14 @@
 		return $db->get_last_insert_id();
 	}
 
-	function insert_treatment($db, $values)
+	function insert_traitement($db, $values)
 	{
-		/** Détermination du médicament **/
-		$medicament = $db->select_one('V_MEDICAMENT', 'libelle', $values['medicament']);
+		$addTr['medicament'] = $values['medicament'];
 
-		if (!$medicament)
-		{
-			$addMed['libelle'] = $values['medicament'];
-			$db->insert_one('V_MEDICAMENT', $addMed);
-			$idMed = $db->get_last_insert_id();
-		}
-
-		else
-		{
-			$idMed = $medicament['identifiant'];
-		}
-
-		$addTr['medicament'] = $idMed;
-
-		/** Autres variables **/
-		$addTr['dilution'] = $values['dilution'] || 'null';
-		$addTr['frequence'] = $values['frequence'] || 'null';
-		$addTr['dose'] = $values['dose'] || 'null';
-		$addTr['duree'] = $values['duree'];
+		$addTr['dilution'] = '\''.$values['dilution'].'\'';
+		$addTr['frequence'] = '\''.$values['frequence'].'\'';
+		$addTr['dose'] = '\''.$values['dose'].'\'';
+		$addTr['duree'] = '\''.$values['duree'].'\'';
 
 		/** Ajout du traitement **/
 		$db->insert_one('V_TRAITEMENT', $addTr);
@@ -135,47 +76,15 @@
 		return $db->get_last_insert_id();
 	}
 
-	function insert_care($db, $values)
+	function insert_soins($db, $values)
 	{
-		/** Détermination de l'animal **/
-		if ($values['newAnimal'])
-		{
-			$idAnimal = insert_animal($db, $values['animal']);
-		}
-
-		else
-		{
-			$idAnimal = $values['animal'];
-		}
-
-		$addCare['animal'] = $idAnimal;
-
-		/** Détermination de l'éventuel traitement **/
-		if ($values['traitement'])
-		{
-			if ($values['newTraitement'])
-			{
-				$idTr = insert_treatment($db, $values['traitement']);
-			}
-
-			else
-			{
-				$idTr = $values['traitement'];
-			}
-
-			$addCare['traitement'] = $idTr;
-		}
-
-		else
-		{
-			$addCare['traitement'] = 'null';
-		}
-
-		/** Autres valeurs **/
+		$addCare['animal'] = $values['animal'];
+		$addCare['traitement'] = $values['traitement'];
 		$addCare['consultation'] = $values['consultation'];
-		$addCare['anamnese'] = $values['anamnese'] || 'null';
-		$addCare['diagnostic'] = $values['diagnostic'] || 'null';
-		$addCare['manipulation'] = $values['manipulation'] || 'null';
+
+		$addCare['anamnese'] = '\''.$values['anamnese'].'\'';
+		$addCare['diagnostic'] = '\''.$values['diagnostic'].'\'';
+		$addCare['manipulation'] = '\''.$values['manipulation'].'\'';
 
 		$db->insert_one('V_SOINS', $addCare);
 		return $db->get_last_insert_id();
@@ -183,36 +92,14 @@
 
 	function insert_consultation($db, $values)
 	{
-		/** Détermination du propriétaire **/
-		if ($values['newProp'])
-		{
-			$idProp = insert_owner($db, $values['proprietaire']);
-		}
+		$addCons['client'] = $values['client'];
 
-		else
-		{
-			$idProp = $values['proprietaire'];
-		}
-
-		$addCons['proprietaire'] = $idProp;
-
-		/** Autres variables **/
-		$addCons['date'] = $values['date'];
-		$addCons['lieu'] = $values['lieu'];
-		$addCons['duree'] = $values['duree'] || 'null';
+		$addCons['date'] = format_date($values['date'], $values['heure']);
+		$addCons['lieu'] = '\''.$values['lieu'].'\'';
+		$addCons['duree'] = format_heure($values['duree']);
 
 		/** Ajout de la consultation **/
 		$idCons = $db->insert_one('V_CONSULTATION', $addCons);
-
-		/** Ajout des soins éventuels **/
-		if ($values['soins'])
-		{
-			foreach ($values['soins'] as $soin) 
-			{
-				$soin['consultation'] = $idCons;
-				insert_care($db, $soin);
-			}
-		}
 
 		return $idCons;
 	}
@@ -228,7 +115,7 @@
 		$array['columns']['date'] = array('text', 'date');
 		$array['columns']['heure'] = array('text', 'heure');
 		$array['columns']['lieu'] = array('select', array('Cabinet', 'Extérieur'));
-		$array['columns']['duree'] = array('text', 'duree');
+		$array['columns']['duree'] = array('text', '0/heure');
 		$array['columns']['soins'] = array('list');
 
 		return $array;
@@ -266,8 +153,8 @@
 		$array['columns']['client'] = array('select', $props, 'dyn');
 		$array['columns']['espece'] = array('select', $especes, 'dyn');
 		$array['columns']['race'] = array('text', '0-15');
-		$array['columns']['taille'] = array('text', 'f:3.2');
-		$array['columns']['poids'] = array('text', 'f:4.3');
+		$array['columns']['taille'] = array('text', '0/f:3.2');
+		$array['columns']['poids'] = array('text', '0/f:4.3');
 		$array['columns']['genre'] = array('select', array('Male', 'Femelle', 'Hermaphrodite', 'Inconnu'));
 		$array['columns']['sterile'] = array('radio', array('Oui', 'Non'));
 		$array['columns']['tatouage'] = array('text', 'd:0-10');
@@ -304,6 +191,50 @@
 		$especes = get_especes_list($db, true);
 
 		$array['columns']['libelle'] = array('text', '1-15', 'unique', $especes);
+
+		return $array;
+	}
+
+	function get_insert_medicament($db)
+	{
+		$array['title'] = 'Médicament';
+
+		$medicament = get_medicament_list($db, true);
+
+		$array['columns']['libelle'] = array('text', '1-20','unique', $medicament);
+
+		return $array;
+	}
+
+	function get_insert_traitement($db)
+	{
+		$array['title'] = 'Traitement';
+
+		$medicament = get_medicament_list($db);
+
+		$array['columns']['medicament'] = array('select', $medicament, 'dyn');
+		$array['columns']['dilution'] = array('text', '0-10');
+		$array['columns']['frequence'] = array('text', '0-10');
+		$array['columns']['dose'] = array('text', '0-10');
+		$array['columns']['duree'] = array('text', '1-10');
+
+		return $array;
+	}
+
+	function get_insert_soins($db)
+	{
+		$array['title'] = 'Soins';
+
+		$consultation = get_consultation_list($db);
+		$animal = get_animal_list($db);
+		$traitement = get_traitement_list($db);
+
+		$array['columns']['consultation'] = array('select', $consultation, 'dyn');
+		$array['columns']['animal'] = array('select', $animal, 'dyn');
+		$array['columns']['anamnese'] = array('text', '0-50');
+		$array['columns']['diagnostic'] = array('text', '0-100');
+		$array['columns']['manipulation'] = array('text', '0-100');
+		$array['columns']['traitement'] = array('select', $traitement, 'dyn');
 
 		return $array;
 	}

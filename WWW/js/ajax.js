@@ -1,5 +1,7 @@
-function ajax_request(url, params, callback, async = true)
+function ajax_request(url, params, callback, async)
 {
+	async = async === null ? true : async;
+
 	var ajaxReq = new XMLHttpRequest();
 
 	ajaxReq.onreadystatechange = function()

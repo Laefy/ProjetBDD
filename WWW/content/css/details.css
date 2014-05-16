@@ -28,13 +28,20 @@
 
 .details input[type="text"], .details select
 {
+	margin-top: -3px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+/*
+.details input[type="text"], .details select
+{
 	display: inline-block;
 	margin-bottom: 0px;
 	margin-top: 5px;
 	margin-left: 3px;
 	margin-right: 6px;
 	vertical-align: middle;
-	width: 10px;
 }
 
 .details input[type="radio"]
@@ -45,11 +52,13 @@
 	margin-right: 5px;
 	margin-left: 3px;
 	vertical-align: middle;
-}
+}*/
 
 .details div
 {
-	min-height: 25px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	min-height: 23px;
 }
 
 .details.insert div
@@ -70,13 +79,6 @@
 	background-size: 20px 20px;
 	background-position: right center;
 	background-repeat: no-repeat;
-}
-
-.details span
-{
-	display: inline-block;
-	vertical-align: top;
-	margin-bottom: 7px;
 }
 
 .details .icon.close

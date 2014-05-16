@@ -129,23 +129,27 @@
 
 			foreach ($values as $label => $value)
 			{
-				if ($nb == 0)
+				if ($value != '')
 				{
-					$cols = $label;
-					$vals = $value;
-				}
+					if ($nb == 0)
+					{
+						$cols = $label;
+						$vals = $value;
+					}
 
-				else
-				{
-					$cols .= ', '.$label;
-					$vals .= ', '.$value;
-				}
+					else
+					{
+						$cols .= ', '.$label;
+						$vals .= ', '.$value;
+					}
 
-				$nb ++;
+					$nb ++;
+				}
 			}
 
 			$query = 'INSERT INTO '.$table.'('.$cols.') VALUES ('.$vals.')';
 			$this->mysqli->query($query);
+			print($query);
 
 			if ($result = $this->mysqli->store_result)
 			{
